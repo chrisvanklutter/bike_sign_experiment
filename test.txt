@@ -1,0 +1,138 @@
+options
+  resolution 1500 1125
+  background color grey
+  fullscreen
+  scale
+  set &height_frage -100
+  set &custom_trial_count 1
+
+bitmaps
+distractor1
+distractor10
+distractor11
+distractor12
+distractor2
+distractor3
+distractor4
+distractor5
+distractor6
+distractor8
+rotMit1
+rotMit10
+rotMit11
+rotMit12
+rotMit14
+rotMit17
+rotMit2
+rotMit3
+rotMit8
+rotMit9
+rotOhne1
+rotOhne14
+rotOhne18
+rotOhne19
+rotOhne20
+rotOhne21
+rotOhne24
+rotOhne3
+rotOhne4
+rotOhne7
+testbild1
+testbild2
+
+
+
+table aufgaben
+ include aufgaben.txt
+
+table test_aufgaben
+ include test_aufgaben.txt
+
+part countdown
+  set $timer 7
+  while $timer != 0
+    show text $timer 0 0
+    delay 1000
+    clear -1
+    set $timer decrease
+  while-end
+
+part wait_for_answer
+  set $wait_time 1
+  while STATUS == TIMEOUT
+    readkey @3 $wait_time
+  while-end
+
+task test_bild
+  keys y n
+  table test_aufgaben
+  text color black
+  set $errorcount 0
+  set %frage TRIALCOUNT ". Testfrage: " @2
+  show text %frage 0 &height_frage
+  show text "Ja: 'y' Nein: 'n'" 0 100
+  part countdown
+  show bitmap @1
+  timestamp answer_t0
+  readkey @3 3000
+  clear -1
+  part wait_for_answer
+  timestamp answer_tx
+  set $answer_tdiff timestamp-diff answer_t0 answer_tx
+  if STATUS != CORRECT
+      set $errorcount 1
+  fi
+  save  TASKNAME @4 $answer_tdiff $errorcount
+
+task pause
+  keys space
+  text color black
+  show text "Vielen Dank. Ab hier beginnt das Experiment. Sobald Sie bereit sind drücken Sie bitte die Leertaste." 0 &height_frage
+  readkey 1 500
+  set $wait_time 500
+  while STATUS == TIMEOUT
+    readkey 1 $wait_time
+  while-end
+
+task bild
+  keys y n
+  text color black
+  table aufgaben
+  set $errorcount 0
+  set %frage &custom_trial_count ". " @2
+  show text %frage 0 &height_frage
+  show text "Ja: 'y' Nein: 'n'" 0 100
+  part countdown
+  show bitmap @1
+  timestamp answer_t0
+  readkey @3 3000
+  clear -1
+  part wait_for_answer
+  timestamp answer_tx
+  set $answer_tdiff timestamp-diff answer_t0 answer_tx
+  if STATUS != CORRECT
+      set $errorcount 1
+  fi
+  set &custom_trial_count increase
+  save TASKNAME @4 $answer_tdiff $errorcount
+# -------------------------------------
+
+block pre_test
+  tasklist
+    test_bild 2 no_repeat
+  end
+
+block pause_before_begin
+  tasklist
+    pause 1 no_repeat
+  end
+
+block test
+  tasklist
+    bild 30 no_repeat
+  end
+
+blockorder
+  pre_test
+  pause_before_begin
+  test

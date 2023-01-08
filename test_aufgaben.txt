@@ -1,0 +1,2 @@
+testbild1 "Dürfen Sie hier rechts abbiegen?" 2 "testbild1"
+testbild2 "Dürfen Sie hier geradeaus fahren?" 1 "testbild2"

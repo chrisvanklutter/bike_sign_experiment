@@ -1,0 +1,86 @@
+l: Vor_test_info
+t: info
+q: --- Gleich beginnt das Experiment --- <br><br>
+Bevor wir mit dem Experiment starten, werden Ihnen zuerst noch zwei Testfragen gestellt, um Sie mit dem Konzept vertraut zu machen.
+Beantworten Sie alle Fragen mit den Tasten <b>Y</b> (Ja) und <b>N</b> (Nein).
+<br>Es wäre gut, wenn Sie sich die nächsten <b>10</b> Minuten ungestört dem Experiment widmen können.
+Bitte beachten Sie, dass dieses Experiment zwar abgebrochen, aber <b>nicht</b> weitergeführt werden kann. Es gibt nur einen Neustart.
+<br>Stellen Sie ihre Bildschirmhelligkeit wenn möglich nach oben um die besten Ergebnisse zu erzielen.
+<br>Mit dem unten stehenden Knopf gelangen Sie zum Experiment.
+
+
+l: experiment
+t: experiment
+- {fullscreen} GEO873
+
+page: begin
+
+l: info_post
+t: info
+q: Vielen Dank für Ihre Teilnahme. Bitte füllen noch den folgenden, kurzen Fragebogen aus.
+
+l: korrektheit
+t: range
+q: Was denken Sie, welchen Prozentsatz der Fragen Sie richtig beantworten konnten?
+- {min=0%,max=100%,start=50,left=0,right=100}
+
+l: stress
+t: radio
+q: Wie gestresst waren Sie während des Experiments?
+- ganz entspannt
+- entspannt
+- neutral
+- etwas gestresst
+- völlig gestresst
+
+l: stoerung
+t: radio
+q: Konnten Sie das Experiment ungestört durchführen?
+- Ja
+- Nein
+
+l: velofahren
+t: range
+q: Benutzen Sie den Schieber um Ihre Antwort zu geben.
+- {min=0,max=30,start=15,left=0,right=30} An wie vielen Tagen fahren Sie im Monat durchschnittlich Velo?
+- {min=0,max=10,start=5,left=Land,right=Stadt} Wo fahren Sie eher Velo?
+
+page: end
+
+page: begin
+
+l: veloschild
+i: veloschild.png
+q: Kannten Sie dieses Schild vor dieser Studie?
+t: radio
+- Ja
+- Nein
+
+l: veloschild2
+t: radio
+q: Wurde Ihnen vor dieser Seite bewusst, das dieses Schild für die Studie wichtig ist?
+- Ja
+- Nein
+
+page: end
+
+page: begin
+
+l: geschlecht
+t: radio
+q: Welches Geschlecht haben Sie?
+- Männlich
+- Weiblich
+- Nicht-binär
+
+l: alter
+t: textline
+q: Wie alt sind Sie?
+- {min=18,max=100}
+
+l: weiteres
+t: textbox
+q: Haben Sie noch weitere Anmerkungen?
+- {w=100,h=5}
+
+page: end
